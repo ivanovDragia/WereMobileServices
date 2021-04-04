@@ -1,0 +1,220 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="database_were_mobileModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="WereMobileEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Barcode" EntityType="database_were_mobileModel.Barcode" />
+    <EntitySet Name="Contragent" EntityType="database_were_mobileModel.Contragent" />
+    <EntitySet Name="Document" EntityType="database_were_mobileModel.Document" />
+    <EntitySet Name="DocumentRow" EntityType="database_were_mobileModel.DocumentRow" />
+    <EntitySet Name="Lot" EntityType="database_were_mobileModel.Lot" />
+    <EntitySet Name="Product" EntityType="database_were_mobileModel.Product" />
+    <EntitySet Name="Setting" EntityType="database_were_mobileModel.Setting" />
+    <EntitySet Name="sysdiagrams" EntityType="database_were_mobileModel.sysdiagrams" />
+    <AssociationSet Name="FK_barcodes_products" Association="database_were_mobileModel.FK_barcodes_products">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Barcode" EntitySet="Barcode" />
+    </AssociationSet>
+    <AssociationSet Name="FK_documents_contragents" Association="database_were_mobileModel.FK_documents_contragents">
+      <End Role="Contragent" EntitySet="Contragent" />
+      <End Role="Document" EntitySet="Document" />
+    </AssociationSet>
+    <AssociationSet Name="FK_documents_contragents1" Association="database_were_mobileModel.FK_documents_contragents1">
+      <End Role="Contragent" EntitySet="Contragent" />
+      <End Role="Document" EntitySet="Document" />
+    </AssociationSet>
+    <AssociationSet Name="FK_document_row_documents" Association="database_were_mobileModel.FK_document_row_documents">
+      <End Role="Document" EntitySet="Document" />
+      <End Role="DocumentRow" EntitySet="DocumentRow" />
+    </AssociationSet>
+    <AssociationSet Name="FK_document_row_lots" Association="database_were_mobileModel.FK_document_row_lots">
+      <End Role="Lot" EntitySet="Lot" />
+      <End Role="DocumentRow" EntitySet="DocumentRow" />
+    </AssociationSet>
+    <AssociationSet Name="FK_document_row_products" Association="database_were_mobileModel.FK_document_row_products">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="DocumentRow" EntitySet="DocumentRow" />
+    </AssociationSet>
+    <AssociationSet Name="FK_lots_products" Association="database_were_mobileModel.FK_lots_products">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="Lot" EntitySet="Lot" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Barcode">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BarcodeNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="ProductID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Product" Relationship="database_were_mobileModel.FK_barcodes_products" FromRole="Barcode" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Contragent">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Bulstat" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="VatNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Mrp" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Document" Relationship="database_were_mobileModel.FK_documents_contragents" FromRole="Contragent" ToRole="Document" />
+    <NavigationProperty Name="Document1" Relationship="database_were_mobileModel.FK_documents_contragents1" FromRole="Contragent" ToRole="Document" />
+  </EntityType>
+  <EntityType Name="Document">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SourceID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DestinationID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DocumentNumber" Type="Int32" Nullable="false" />
+    <Property Name="Date" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Contragent" Relationship="database_were_mobileModel.FK_documents_contragents" FromRole="Document" ToRole="Contragent" />
+    <NavigationProperty Name="Contragent1" Relationship="database_were_mobileModel.FK_documents_contragents1" FromRole="Document" ToRole="Contragent" />
+    <NavigationProperty Name="DocumentRow" Relationship="database_were_mobileModel.FK_document_row_documents" FromRole="Document" ToRole="DocumentRow" />
+  </EntityType>
+  <EntityType Name="DocumentRow">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ProductID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="LotID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Quantity" Type="Double" Nullable="false" />
+    <Property Name="Sum" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="DocumentID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Document" Relationship="database_were_mobileModel.FK_document_row_documents" FromRole="DocumentRow" ToRole="Document" />
+    <NavigationProperty Name="Lot" Relationship="database_were_mobileModel.FK_document_row_lots" FromRole="DocumentRow" ToRole="Lot" />
+    <NavigationProperty Name="Product" Relationship="database_were_mobileModel.FK_document_row_products" FromRole="DocumentRow" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Lot">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="ProductID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Quantity" Type="Double" Nullable="false" />
+    <Property Name="ExpirationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LotNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="DocumentRow" Relationship="database_were_mobileModel.FK_document_row_lots" FromRole="Lot" ToRole="DocumentRow" />
+    <NavigationProperty Name="Product" Relationship="database_were_mobileModel.FK_lots_products" FromRole="Lot" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Quantity" Type="Double" Nullable="false" />
+    <Property Name="Price" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="ProductNumber" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Barcode" Relationship="database_were_mobileModel.FK_barcodes_products" FromRole="Product" ToRole="Barcode" />
+    <NavigationProperty Name="DocumentRow" Relationship="database_were_mobileModel.FK_document_row_products" FromRole="Product" ToRole="DocumentRow" />
+    <NavigationProperty Name="Lot" Relationship="database_were_mobileModel.FK_lots_products" FromRole="Product" ToRole="Lot" />
+  </EntityType>
+  <EntityType Name="Setting">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Value" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_barcodes_products">
+    <End Type="database_were_mobileModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="database_were_mobileModel.Barcode" Role="Barcode" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Barcode">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_documents_contragents">
+    <End Type="database_were_mobileModel.Contragent" Role="Contragent" Multiplicity="1" />
+    <End Type="database_were_mobileModel.Document" Role="Document" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contragent">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Document">
+        <PropertyRef Name="SourceID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_documents_contragents1">
+    <End Type="database_were_mobileModel.Contragent" Role="Contragent" Multiplicity="1" />
+    <End Type="database_were_mobileModel.Document" Role="Document" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contragent">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Document">
+        <PropertyRef Name="DestinationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_document_row_documents">
+    <End Type="database_were_mobileModel.Document" Role="Document" Multiplicity="1" />
+    <End Type="database_were_mobileModel.DocumentRow" Role="DocumentRow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Document">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DocumentRow">
+        <PropertyRef Name="DocumentID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_document_row_lots">
+    <End Type="database_were_mobileModel.Lot" Role="Lot" Multiplicity="1" />
+    <End Type="database_were_mobileModel.DocumentRow" Role="DocumentRow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lot">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DocumentRow">
+        <PropertyRef Name="LotID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_document_row_products">
+    <End Type="database_were_mobileModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="database_were_mobileModel.DocumentRow" Role="DocumentRow" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="DocumentRow">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_lots_products">
+    <End Type="database_were_mobileModel.Product" Role="Product" Multiplicity="1" />
+    <End Type="database_were_mobileModel.Lot" Role="Lot" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Lot">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>
